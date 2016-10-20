@@ -3,6 +3,7 @@ var sqlite3 = require('sqlite3')
 var path = require('path')
 var url = require('url');
 var querystring = require('querystring');
+var fs = require("fs");
 
 var dbPath = path.join(__dirname, "dbs", "kvs.db")
 
@@ -17,6 +18,8 @@ var nanoServ = http.createServer(function (req, res) {
         get(res,reqUrl.query.id)
     } else if(reqUrl.path === '/delete') {
         cleanAll(res)
+    }else if(reqUrl.path === '/status') {
+        status(res)
     } else if(reqUrl.path === '/') {
         getAll(res)
     } else {
@@ -75,6 +78,29 @@ function get(res, id) {
 
 function status(res) {
 
+
+    var stats = fs.statSync(dbPath)
+    var fileSizeInBytes = stats["size"]
+    var fileSizeInKiloBytes = fileSizeInBytes / 1000.0
+
+    var dbStatus = {dbSize : fileSizeInKiloBytes + 'kO  '};
+
+    var dbkv = new sqlite3.Database(dbPath);
+
+    dbkv.get("SELECT count(*) as tableLength from key_values ", function(error, row) {
+        if(error) {
+            res.writeHead('500');
+            res.end('<h1><center>500</center></h1>' + error.toString())
+        } else {
+
+            dbStatus.entries = row.tableLength;
+            res.end(JSON.stringify(dbStatus))
+
+        }
+        dbkv.close()
+    })
+
+
 }
 
 function put(res, req) {
@@ -104,4 +130,5 @@ function put(res, req) {
 }
 
 var port = process.env.PORT || 8080
+console.info("Listen on port : ", port)
 nanoServ.listen(port)
