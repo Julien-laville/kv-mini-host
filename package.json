@@ -6,7 +6,7 @@
     "node": "4.6.0"
   },
   "scripts": {
-    "heroku-postbuild": "node heroku/index.js",
+    "heroku-postbuild": "node heroku/install.js",
     "start": "node index.js"
   },
   "author": "julien-laville",
