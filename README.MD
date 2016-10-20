@@ -13,7 +13,7 @@ GET /delete
 
 GET /status
 
-POST {k : key, v : value}
+POST {key : key, value : value}
 
 GET /
 

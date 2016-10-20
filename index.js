@@ -5,6 +5,8 @@ var url = require('url');
 var querystring = require('querystring');
 var fs = require("fs");
 
+var zlib = require("zlib")
+
 var dbPath = path.join(__dirname, "dbs", "kvs.db")
 
 var nanoServ = http.createServer(function (req, res) {
