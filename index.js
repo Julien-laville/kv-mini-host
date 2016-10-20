@@ -4,7 +4,7 @@ var path = require('path')
 var url = require('url');
 var querystring = require('querystring');
 
-var dbPath = path.join(__dirname, "kvs.db")
+var dbPath = path.join(__dirname, "dbs", "kvs.db")
 
 var nanoServ = http.createServer(function (req, res) {
     var reqUrl = url.parse(req.url, true)
