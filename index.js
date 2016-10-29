@@ -19,7 +19,7 @@ var nanoServ = http.createServer(function (req, res) {
         get(res,reqUrl.query.id)
     } else if(reqUrl.path === '/delete') {
         cleanAll(res)
-    }else if(reqUrl.path === '/status') {
+    } else if(reqUrl.path === '/status') {
         status(res)
     } else if(reqUrl.path === '/') {
         getAll(res)
@@ -84,7 +84,7 @@ function status(res) {
     var fileSizeInBytes = stats["size"]
     var fileSizeInKiloBytes = fileSizeInBytes / 1000.0
 
-    var dbStatus = {dbSize : fileSizeInKiloBytes + 'kO  '};
+    var status = {dbSize : fileSizeInKiloBytes + 'kO  '};
 
     var dbkv = new sqlite3.Database(dbPath);
 
@@ -94,8 +94,9 @@ function status(res) {
             res.end('<h1><center>500</center></h1>' + error.toString())
         } else {
 
-            dbStatus.entries = row.tableLength;
-            res.end(JSON.stringify(dbStatus))
+            status.entries = row.tableLength;
+            status.config = config
+            res.end(JSON.stringify(status))
 
         }
         dbkv.close()

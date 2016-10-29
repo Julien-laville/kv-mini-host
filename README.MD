@@ -20,5 +20,13 @@ GET /
 
 ## Configuration
 
-- Not implemented Yet -
 
+{
+    "envName" : {
+        "cors" : "protocol:corsName:port"
+    }
+}
+
+## Changelog
+
+    0.0.2 add CORS config / add config data to status
