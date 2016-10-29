@@ -1,6 +1,12 @@
 {
-	"auth" : [
+  "localhost" : {
+	"cors" : "http://localhost:8080"
+  },
+  "heroku" : {
+	"db" : {
 
-	],
-	"db" : "kvs"
+	},
+	"cors" : "https://julien-laville.github.io"
+
+  }
 }

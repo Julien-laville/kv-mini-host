@@ -3,16 +3,15 @@ var sqlite3 = require('sqlite3')
 var path = require('path')
 var url = require('url');
 var querystring = require('querystring');
+var config = require(path.join(__dirname,"config.json"))[process.env.environment];
 var fs = require("fs");
-
 var zlib = require("zlib")
 
 var dbPath = path.join(__dirname, "dbs", "kvs.db")
 
 var nanoServ = http.createServer(function (req, res) {
     var reqUrl = url.parse(req.url, true)
-
-    res.setHeader('Access-Control-Allow-Origin', 'https://julien-laville.github.io');
+    res.setHeader('Access-Control-Allow-Origin', config.cors);
 
     if(req.method === 'POST') {
         put(res, req)
