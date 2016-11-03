@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="57d262a8-e63e-4e78-81da-2a7b2d334e8e" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/index.js" afterPath="$PROJECT_DIR$/test/index.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="kv-mini-host.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -295,12 +295,12 @@
       <option name="presentableId" value="Default" />
       <updated>1476890586362</updated>
       <workItem from="1476890587709" duration="3516000" />
-      <workItem from="1478184608827" duration="604000" />
+      <workItem from="1478184608827" duration="1197000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="4120000" />
+    <option name="totallyTimeSpent" value="4713000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1920" height="1047" extended-state="6" />
