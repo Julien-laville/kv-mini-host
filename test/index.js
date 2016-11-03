@@ -1,1 +1,1 @@
-exit(0)
+process.exit()
