@@ -1,3 +1,5 @@
+![Build status](https://travis-ci.org/Julien-laville/kv-mini-host.svg?branch=master)
+
 # KEY VALUE Mini server 
 
 ## Description
