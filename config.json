@@ -1,5 +1,6 @@
 {
   "localhost" : {
+    "persistMethod" : "file | volatile | db",
 	"cors" : "http://localhost:8080"
   },
   "heroku" : {

@@ -28,5 +28,6 @@ GET /
 }
 
 ## Changelog
+    
 
     0.0.2 add CORS config / add config data to status
