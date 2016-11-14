@@ -1,7 +1,9 @@
 {
   "localhost" : {
     "persistMethod" : "file | volatile | db",
-	"cors" : "http://localhost:8080"
+	"cors" : "http://localhost:8080",
+    "isJSONP" : true,
+    "JSONPCallback" : "getResponse"
   },
   "heroku" : {
 	"db" : {

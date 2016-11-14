@@ -40,7 +40,7 @@ function getAll(res) {
             res.end('<h1><center>500</center></h1>' + error.toString())
         } else {
             allValues = rows.map(function(r){return {key : r.key, value : r.value}})
-            res.end(JSON.stringify(allValues))
+            res.end(formatResponse(allValues))
         }
         dbkv.close()
     })
@@ -55,7 +55,7 @@ function cleanAll(res) {
             res.writeHead('500');
             res.end('<h1><center>500</center></h1>' + error.toString())
         } else {
-            res.end(JSON.stringify({status : 'success'}))
+            res.end(formatResponse({status : 'success'}))
         }
         dbkv.close()
    }) 
@@ -63,18 +63,20 @@ function cleanAll(res) {
 
 function get(res, id) {
     var dbkv = new sqlite3.Database(dbPath);
+    var ids = id.split(',')
+    if(ids.length > 1) {
+        
+    }
+
     dbkv.get("SELECT * from key_values WHERE key = ?",{1 : id}, function(error, row) {
         if(error) {
             res.writeHead('500');
             res.end('<h1><center>500</center></h1>' + error.toString())
         } else {
-            res.end(JSON.stringify({value : row.value}))
+            res.end(formatResponse({value : row.value}))
         }
         dbkv.close()
     })
-    
-    
-
 }
 
 function status(res) {
@@ -96,13 +98,11 @@ function status(res) {
 
             status.entries = row.tableLength;
             status.config = config
-            res.end(JSON.stringify(status))
+            res.end(formatResponse(status))
 
         }
         dbkv.close()
     })
-
-
 }
 
 function put(res, req) {
@@ -122,13 +122,27 @@ function put(res, req) {
                 res.writeHead('500');
                 res.end('<h1><center>500</center></h1>' + error.toString())
             } else {
-                res.end(JSON.stringify({status : 'success'}))
+                res.end(formatResponse({status : 'success'}))
             }
             dbkv.close()
         })
     })
+}
 
+function abstractStore(key, value) {
+
+}
+
+function abstractLoad(key) {
     
+}
+
+function formatResponse(response) {
+    if(config.isJSONP) {
+        return config.JSONPCallback + '(' + JSON.stringify(response) + ');'
+    } else {
+        return JSON.stringify(response)
+    }
 }
 
 var port = process.env.PORT || 8080
