@@ -7,7 +7,8 @@
   },
   "scripts": {
     "heroku-postbuild": "node heroku/install.js",
-    "start": "node index.js"
+    "start": "node index.js",
+    "test" : "node test/index.js"
   },
   "author": "julien-laville",
   "license": "MIT",
