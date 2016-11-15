@@ -62,20 +62,15 @@ function cleanAll(res) {
 }
 
 function get(res, id) {
-    var dbkv = new sqlite3.Database(dbPath);
+    var dbkv = requiere('./dbs/db.js')(dbPath);
     var ids = id.split(',')
-    if(ids.length > 1) {
-        
-    }
-
-    dbkv.get("SELECT * from key_values WHERE key = ?",{1 : id}, function(error, row) {
+    dbkv.get(ids, function(error, row) {
         if(error) {
             res.writeHead('500');
             res.end('<h1><center>500</center></h1>' + error.toString())
         } else {
             res.end(formatResponse({value : row.value}))
         }
-        dbkv.close()
     })
 }
 
@@ -129,11 +124,22 @@ function put(res, req) {
     })
 }
 
-function abstractStore(key, value) {
+function abstractStore(key, value, cb) {
+    var method = config.persistMethod
+    switch(method){
+        case 'file':
 
+            break
+        case 'volatile' :
+
+            break
+        default :
+
+
+    }
 }
 
-function abstractLoad(key) {
+function abstractLoad(key, b) {
     
 }
 
