@@ -11,7 +11,7 @@ kv-mini host is a super simple node application for storing & retreiving small d
 
 GET /?id=key or /?id=\[hey1,key2\]
 
-GET /delete
+GET /clean
 
 GET /status
 
@@ -36,5 +36,6 @@ GET /
     0.0.3   add alternative persist method
             add multi key get
             add jsonp handling
+            delete -> clean
 
     0.0.2   add CORS config / add config data to status

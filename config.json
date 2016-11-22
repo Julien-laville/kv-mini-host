@@ -1,6 +1,6 @@
 {
   "localhost" : {
-    "persistMethod" : "file | volatile | db",
+    "persistMethod" : "file",
 	"cors" : "http://localhost:8080",
     "isJSONP" : true,
     "JSONPCallback" : "getResponse"

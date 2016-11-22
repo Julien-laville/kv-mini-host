@@ -1,107 +1,84 @@
 var http = require('http')
-var sqlite3 = require('sqlite3')
 var path = require('path')
 var url = require('url');
 var querystring = require('querystring');
 var config = require(path.join(__dirname,"config.json"))[process.env.environment];
-var fs = require("fs");
+var db = require(path.join(__dirname, 'dbs', 'abstractDb'))(config)
 var zlib = require("zlib")
 
-var dbPath = path.join(__dirname, "dbs", "kvs.db")
+/* prevent close */
+require(path.join(__dirname, 'process_ui'))()
 
 var nanoServ = http.createServer(function (req, res) {
     var reqUrl = url.parse(req.url, true)
     res.setHeader('Access-Control-Allow-Origin', config.cors);
 
     if(req.method === 'POST') {
-        put(res, req)
+        store(res, req)
     } else if(reqUrl.query.id) {
-        get(res,reqUrl.query.id)
-    } else if(reqUrl.path === '/delete') {
-        cleanAll(res)
+        load(res,reqUrl.query.id)
+    } else if(reqUrl.path === '/clean') {
+        removeAll(res)
     } else if(reqUrl.path === '/status') {
         status(res)
     } else if(reqUrl.path === '/') {
-        getAll(res)
+        loadAll(res)
     } else {
         res.writeHead(404);
-        res.end('<h1><center>404</center></h1>')
+        res.end(formatResponse({error : "Function not found"}))
     }
 
 })
 
 
-function getAll(res) {
+function loadAll(res) {
     var allValues = [];
-    var dbkv = new sqlite3.Database(dbPath);
-    dbkv.all("SELECT * from key_values", function (error, rows) {
+    db.loadAll(function(error, datas) {
         if(error) {
             res.writeHead('500');
-            res.end('<h1><center>500</center></h1>' + error.toString())
+            res.end(formatResponse({error : error.toString()}))
         } else {
-            allValues = rows.map(function(r){return {key : r.key, value : r.value}})
-            res.end(formatResponse(allValues))
+            res.end(formatResponse(datas))
         }
-        dbkv.close()
     })
-
 }
 
-function cleanAll(res) {
-    var dbkv = new sqlite3.Database(dbPath);
-
-   dbkv.exec("DELETE from key_values", function(error) {
+function removeAll(res) {
+   db.removeAll(function(error) {
        if(error) {
             res.writeHead('500');
-            res.end('<h1><center>500</center></h1>' + error.toString())
+            res.end(formatResponse({error : error.toString()}))
         } else {
             res.end(formatResponse({status : 'success'}))
         }
-        dbkv.close()
-   }) 
+   })
 }
 
-function get(res, id) {
-    var dbkv = requiere('./dbs/db.js')(dbPath);
+function load(res, id) {
     var ids = id.split(',')
-    dbkv.get(ids, function(error, row) {
+    db.load(ids, function(error, rows) {
         if(error) {
             res.writeHead('500');
-            res.end('<h1><center>500</center></h1>' + error.toString())
+            res.end(formatResponse({error : error.toString()}))
         } else {
-            res.end(formatResponse({value : row.value}))
+            res.end(formatResponse(rows))
         }
     })
 }
 
 function status(res) {
 
-
-    var stats = fs.statSync(dbPath)
-    var fileSizeInBytes = stats["size"]
-    var fileSizeInKiloBytes = fileSizeInBytes / 1000.0
-
-    var status = {dbSize : fileSizeInKiloBytes + 'kO  '};
-
-    var dbkv = new sqlite3.Database(dbPath);
-
-    dbkv.get("SELECT count(*) as tableLength from key_values ", function(error, row) {
+    db.status(function(error, status) {
         if(error) {
             res.writeHead('500');
-            res.end('<h1><center>500</center></h1>' + error.toString())
+            res.end(formatResponse({error : error.toString()}))
         } else {
-
-            status.entries = row.tableLength;
-            status.config = config
             res.end(formatResponse(status))
-
         }
-        dbkv.close()
     })
 }
 
-function put(res, req) {
-    var dbkv = new sqlite3.Database(dbPath);
+function store(res, req) {
     var fullBody = '';
 
     req.on('data', function(chunk) {
@@ -112,36 +89,17 @@ function put(res, req) {
 
         var decodedBody = querystring.parse(fullBody);
 
-        dbkv.run("INSERT into key_values (key, value) VALUES(?,?)", {1:decodedBody.key, 2:decodedBody.value}, function(error) {
+        db.store(decodedBody.key, decodedBody.value, function(error) {
             if(error) {
                 res.writeHead('500');
-                res.end('<h1><center>500</center></h1>' + error.toString())
+                res.end(formatResponse({error : error.toString()}))
             } else {
                 res.end(formatResponse({status : 'success'}))
             }
-            dbkv.close()
         })
     })
 }
 
-function abstractStore(key, value, cb) {
-    var method = config.persistMethod
-    switch(method){
-        case 'file':
-
-            break
-        case 'volatile' :
-
-            break
-        default :
-
-
-    }
-}
-
-function abstractLoad(key, b) {
-    
-}
 
 function formatResponse(response) {
     if(config.isJSONP) {
