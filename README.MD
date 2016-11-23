@@ -15,9 +15,9 @@ GET /clean
 
 GET /status
 
-POST {key : key, value : value}
+POST / {key : key, value : value}
 
-GET /
+
 
 
 ## Configuration

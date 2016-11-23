@@ -83,7 +83,7 @@ function store(res, req) {
 
     req.on('data', function(chunk) {
         // append the current chunk of data to the fullBody variable
-        fullBody += chunk.toString();
+        fullBody += chunk;
     });
     req.on('end', function() {
 

@@ -14,11 +14,12 @@ module.exports = function() {
             } else {
                 console.log("Db file successfully saved. Exit now")
             }
+
+            if (options.cleanup) console.log('clean');
+            if (err) console.log(err.stack);
+            if (options.exit) process.exit();
         })
 
-        if (options.cleanup) console.log('clean');
-        if (err) console.log(err.stack);
-        if (options.exit) process.exit();
     }
 
 //do something when app is closing

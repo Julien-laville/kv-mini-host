@@ -63,7 +63,7 @@ module.exports = function() {
 
             var dbDesc = fs.openSync(dbFilePath, 'w+')
 
-            fs.write(dbDesc, db, function(error) {
+            fs.write(dbDesc, JSON.stringify(db), function(error) {
                 if(error) {
                     cb(error)
                 } else {
