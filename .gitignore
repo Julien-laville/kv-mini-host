@@ -1,4 +1,4 @@
 node_modules
 .idea
 dbs/*.db
-dbs/*.json 
+dbs/*.json

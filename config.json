@@ -1,15 +1,13 @@
 {
   "localhost" : {
-    "persistMethod" : "file",
+    "persistMethod" : "db",
 	"cors" : "http://localhost:8080",
-    "isJSONP" : true,
+    "isJSONP" : false,
     "JSONPCallback" : "getResponse"
   },
   "heroku" : {
-	"db" : {
-
-	},
-	"cors" : "https://julien-laville.github.io"
-
+    "persistMethod" : "db",
+	"cors" : "https://julien-laville.github.io",
+    "isJSONP" : false
   }
 }
