@@ -1,7 +1,7 @@
 var fs = require('fs')
 var path = require('path')
 var dbFilePath = path.join(__dirname, 'db.json')
-var config = require(path.join(__dirname, '..', 'config.json'))[process.env.environment];
+var config = require(path.join(__dirname, '..', 'config.js'))
 
 function initDb() {
     return {

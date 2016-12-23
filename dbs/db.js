@@ -1,6 +1,6 @@
 var path = require('path')
 var sqlite3 = require('sqlite3')
-var config = require(path.join(__dirname, '..', 'config.json'))[process.env.environment];
+var config = require(path.join(__dirname, '..', 'config.js'))
 var dbPath = path.join(__dirname,'kvs.db')
 var fs = require("fs");
 

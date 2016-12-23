@@ -1,5 +1,5 @@
 var path = require('path')
-var config = require(path.join(__dirname, '..', 'config.json'))[process.env.environment];
+var config = require(path.join(__dirname, '..', 'config.js'))
 
 module.exports = function() {
     var localDB;

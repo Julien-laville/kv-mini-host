@@ -1,5 +1,5 @@
 ![Build status](https://travis-ci.org/Julien-laville/kv-mini-host.svg?branch=master)
-
+[![GitHub release](https://img.shields.io/github/release/julien-laville/kv-mini-host.svg)]()
 # KEY VALUE Mini server 
 
 ## Description
@@ -33,6 +33,10 @@ POST / {key : key, value : value}
 ```
 
 ## Changelog
+    0.0.4   generic config require
+            add tests
+    
+
     0.0.3   add alternative persist method
             add multi key get
             add jsonp handling

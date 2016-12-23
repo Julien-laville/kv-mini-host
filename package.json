@@ -8,11 +8,12 @@
   "scripts": {
     "heroku-postbuild": "node heroku/install.js",
     "start": "node index.js",
-    "test" : "node test/index.js"
+    "test": "node test/index.js"
   },
   "author": "julien-laville",
   "license": "MIT",
   "dependencies": {
+    "grunt-contrib-nodeunit": "1.0.0",
     "request": "2.75.0",
     "sqlite3": "3.1.8"
   }

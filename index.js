@@ -2,7 +2,7 @@ var http = require('http')
 var path = require('path')
 var url = require('url');
 var querystring = require('querystring');
-var config = require(path.join(__dirname,"config.json"))[process.env.environment];
+var config = require(path.join(__dirname, 'config.js'));
 var db = require(path.join(__dirname, 'dbs', 'abstractDb'))(config)
 var zlib = require("zlib")
 
