@@ -30,6 +30,9 @@ var nanoServ = http.createServer(function (req, res) {
 
 })
 
+function getStats(req,res) {
+    
+}
 
 function loadAll(res) {
     var allValues = [];
