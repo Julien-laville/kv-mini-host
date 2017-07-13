@@ -3,7 +3,7 @@
   "description": "a really cool mini key value host",
   "version": "1.0.3",
   "engines": {
-    "node": "4.6.0"
+    "node": "4.8.4"
   },
   "scripts": {
     "heroku-postbuild": "node heroku/install.js",
